@@ -10,15 +10,16 @@ This section outlines the rules for AI assistants when interacting with this
 document.
 
 ** Capturing TODOs
-When I ask you to add a task to the TODO list, please follow this checklist:
+When I ask to add a TODO task:
 
-- [ ] Elicit the task: Ask me to clearly state the task.
-- [ ] What needs to happen?: Ask me about the steps involved in completing the task.
-- [ ] How long will it take?: Ask me for an estimated duration for the task.
-- [ ] Priority level?: Ask me to assign a priority to the task.
-- [ ] Add to inbox: Once all information is gathered, add the task to the inbox in org-mode format.
+1. **Elicit Task Details:** Ask questions to get the following information:
+   - Task description (clearly stated)
+   - Steps involved
+   - Estimated duration
+   - Priority level
+2. **Add to Inbox:**  Create a TODO item in the `** Inbox` section using org-mode format.
 
-For example, a complete TODO item might look like this:
+Example TODO Item:
 
 #+begin_src org
 *** [#A] TODO Call dentist to schedule appointment
@@ -32,37 +33,24 @@ For example, a complete TODO item might look like this:
     - [ ] Add appointment to calendar
 #+end_src
 
-- `[#A]` indicates it's a high priority task.
--- `TODO` is the keyword, marking it as a task to be done.
--- `Call dentist to schedule appointment` is the description of the task.
--- `SCHEDULED: <2025-03-01 Fri>` sets a schedule for Friday, March 1st, 2025 (when you plan to *start* working on it).
--- `DEADLINE: <2025-03-08 Fri>` sets a deadline for Friday, March 8th, 2025 (when the task *must* be completed).
--- `:Effort:   0:30` estimates the task will take 30 minutes.
--- The lines starting with `- [ ]` create a checklist of subtasks within the TODO item.
+**Explanation of TODO Item Format:**
+
+- `[#A]`: High priority.
+- `TODO`: Task keyword.
+- `Call dentist...`: Task description.
+- `SCHEDULED`: Start date.
+- `DEADLINE`: Due date.
+- `:Effort:`: Estimated time.
+- `- [ ] ...`: Subtasks checklist.
 
 ** Logging Important Details:
-When we are having a conversation, if you learn about details of my life that could be relevant for future conversations, please log them in the `** Important Details` section under `* AI Notes`.  These details might include things like:
+When I mention important life details:
 
-- Changes in my work or career
-- Updates on my health or family
-- New hobbies or interests
-- Travel plans
-- Important events or deadlines
+1. **Log to `* AI Notes` / `** Important Details`**
+2. **Format:** `YYYY-MM-DD (Category): Detail`
+3. **Categories:** Personal, Work, Health, Family, Hobbies, Travel, Events
 
-**Format for Logging Details:**
-
-Please log each important detail as a separate bullet point under the `** Important Details` heading.  Start each bullet point with the date (or approximate date) when the detail was mentioned, followed by the category in parentheses, and then the detail itself.
-
-**Categories:**
-- Personal
-- Work
-- Health
-- Family
-- Hobbies
-- Travel
-- Events
-
-For example:
+Example:
 
 * AI Notes
 ** Important Details
