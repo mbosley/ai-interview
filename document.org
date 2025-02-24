@@ -52,12 +52,14 @@ When I mention important life details:
 
 Example:
 
+#+begin_src org
 * AI Notes
 ** Important Details
 *** 2025-02-23 (Personal): Started learning Spanish as a personal development goal.
 *** 2025-02-26 (Health):  Scheduled dentist appointment for March 8th.
 *** 2025-03-01 (Work): Starting new postdoc at CENIA on June 1st.
 *** 20
+#+end_src
 
 * About Me
 My name is Mitchell Bosley, I'm a 34 year old Canadian currently living in
