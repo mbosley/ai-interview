@@ -1,0 +1,280 @@
+#+title: The Document
+
+This is a document that contains the various goings-ons of my life. It is
+designed to be used for task management, TODO tracking, etc., along with AI
+tools such as Aider, Cursor, etc., as well as taking advantage of org-mode
+robust getting things done (GTD) framework such as org-agenda, etc.
+
+* Rules For Use
+This section outlines the rules for AI assistants when interacting with this
+document.
+
+** Capturing TODOs
+When I ask you to add a task to the TODO list, please follow this checklist:
+
+- [ ] Elicit the task: Ask me to clearly state the task.
+- [ ] What needs to happen?: Ask me about the steps involved in completing the task.
+- [ ] How long will it take?: Ask me for an estimated duration for the task.
+- [ ] Priority level?: Ask me to assign a priority to the task.
+- [ ] Add to inbox: Once all information is gathered, add the task to the inbox in org-mode format.
+
+For example, a complete TODO item might look like this:
+
+#+begin_src org
+*** [#A] TODO Call dentist to schedule appointment
+    SCHEDULED: <2025-03-01 Fri>
+    DEADLINE: <2025-03-08 Fri>
+    :PROPERTIES:
+    :Effort:   0:30
+    :END:
+    - [ ] Find dentist's phone number
+    - [ ] Call and schedule appointment
+    - [ ] Add appointment to calendar
+#+end_src
+
+In this example (within the `src` block):
+- `[#A]` indicates it's a high priority task.
+- `TODO` is the keyword, marking it as a task to be done.
+- `Call dentist to schedule appointment` is the description of the task.
+- `SCHEDULED: <2025-03-01 Fri>` sets a schedule for Friday, March 1st, 2025 (when you plan to *start* working on it).
+- `DEADLINE: <2025-03-08 Fri>` sets a deadline for Friday, March 8th, 2025 (when the task *must* be completed).
+- `:Effort:   0:30` estimates the task will take 30 minutes.
+- The lines starting with `- [ ]` create a checklist of subtasks within the TODO item.
+
+** Logging Important Details
+When we are having a conversation, if I mention details about my life that seem
+important or noteworthy, please add them to the `** Important Details` section
+under `* AI Notes`.
+
+**Format for Logging Details:**
+
+Please log each important detail as a separate bullet point under the `** Important Details` heading.  It's helpful to include the date (or approximate date) when the detail was mentioned, if possible.
+
+For example:
+
+* AI Notes
+** Important Details
+*** 2025-02-23: Started learning Spanish as a personal development goal.
+*** 2025-02-26:  Scheduled dentist appointment for March 8th.
+*** 202
+
+* About Me
+My name is Mitchell Bosley, I'm a 34 year old Canadian currently living in
+Santiago, Chile with my wife Veronica and our dog Oscar.
+
+I am an academic studying the application of emerging AI technology to social
+science problems, with a particular interest in measurement of political
+phenomenon from text, persuasion using AI interventions, and simulation using AI
+agents. I received my PhD from the University of Michigan's Political Science
+department in 2024. I have published work related to human-in-the-loop
+classification in the American Political Science Review (APSR), and I have work
+from my dissertation on using AI tools for measuring deliberative quality that
+will be published in the Journal of Political Institutions and Political Economy
+(JPIPE) in 2025. My wife Veronica Hurtado is currently an Assistant Professor at
+the Universidad Adolpho Ibanez in Santiago.
+
+As of Feb 21 2025, I am employed by the Schwartz Reissman center at the
+University of Toronto as a postdoctoral researcher. By June 1 2025, I will be
+starting a role as a postdoctoral researcher at CENIA, the national center for
+AI in Chile, where I'll be continuing my research, with a focus on agentic
+simulation and creating digital clones for applications in predicting political
+behavior and deliberation outcomes.
+
+I grew up in Western Canada, going back and forth between Vancouver, BC, and
+Northern Alberta, where my mother and stepfather lived on a farm near a town
+called Eaglesham. When I graduated highschool in 2008, I moved to Vancouver, and
+over the next eight years I worked a variety of jobs (chiefly food prep, retail,
+and front-of-house restaurant), while attending post-secondary education, first
+at Langara College, then the University of British Columbia, where I earned my
+Bachelor of Arts Degree with Honours in Political Science in 2015, followed by
+my Master of Arts Degree in Political Science in 2018.
+
+I moved to Ann Arbor, Michigan in 2018 to begin pursuing my doctorate in
+Political Science at the University of Michigan. In 2019 I married Veronica,
+after which she joined me in Ann Arbor. Following the outbreak of the
+coronavirus pandemic in 2020, we returned to Vancouver, where Veronica was doing
+her PhD in Political Science at UBC. Over the next few years we moved around the
+world chasing funding opportunities, first to New Haven for a fellowship my wife
+won at Yale, then Peru, my wife's home country, followed by a return to Yale for
+my wife's postdoctoral appointment, a brief stint in Toronto for my own postdoc,
+and finally a move to Chile in October 2024. Once in Chile, I began applying for
+jobs. I interviewed twice for different assistant professor roles at UC in
+Chile, but came up short. I was eventually was hired by CENIA, the national AI
+research center in Chile, as a postdoc. As of February 2025, I am still looking
+for permanent academic roles both in and outside of Chile, but it is looking
+like Chile will be a home for at least the next few years.
+
+** Hobbies
+I have a variety of different hobbies and interests, including several different
+sports (cycling, mountain biking, running, skiing), reading (particularly
+science fiction), and playing video games (I particularly like action RPGs and
+strategy games). I enjoy going on hikes, travelling (although my wife is the big
+travel planner of the two of us), and walking my dog Oscar, who is a Jack
+Russell Terrier mix.
+
+** Health
+*** Mental Health
+While I am generally a happy and outgoing person, I do sometimes suffer from
+anxiety, particularly related to my academic productivity. This anxiety tends to
+manifest as a fear/panic response, feelings of worthlessness, etc., and will
+often result in avoidance and procrastination. I tend to have significant swings
+from week to week in my productive throughput: some weeks I am highly organized
+and am able to move efficiently through todo lists and hit deadlines; in other
+weeks I am barely motivated to work, and will maybe put two to three hours work
+in before lunch, after which I go for a run, play video games, read a book,
+etc., rather than being able to re-engage with my work. I tend to get excited
+and highly motivated by "new" projects, but have a hard time putting the
+finishing touches on existing projects once the bulk of the work has been done.
+
+In general, I find that regular exercise helps to regulate some of the "swings"
+that I experience. However, I have a recurring injury in my right foot that
+flares up if I run too much, so I have tried to transition into cycling as a
+lower-impact sport. I have had bouts of talk therapy, as well as experimented
+with some pharmaceutical solutions. I found talk therapy to be extremely helpful
+in helping to enable a "vent it", "name it", "change it" loop, where I am first
+given an opportunity to vent about the feelings I am having, then the
+opportunity to give a name to those feelings, and finally the tools to start
+recognizing the triggers of those feelings and working to avoid them or to build
+tolerance. I was briefly prescribed the anti-depressant Welbutrin in 2023 to
+help deal with my anxiety and executive dysfunction, but after having a seizure
+in October 2024, I was taken off it. After a series of medical tests, it was
+determined that I have a congenital small lesion in my brain (MVNT, I believe)
+which increases my baseline risk for seizures. I was instructed to that I should
+monitor it annually, but told that it likely will not affect my life quality. I
+had never had a seizure before the incident, nor have I had one since. Overall,
+my therapist and psychiatrist from that 2023-2024 period agree that while I do
+have some difficulty with the "swings" described above, they are not severe
+enough to lead to a formal diagnosis with a disorder such as ADHD, Bipolar,
+etc., as evidenced by my overall professional and personal successes in life.
+That said, this is something that I should continue to monitor, as I have direct
+family (my father, and my older half-brother on my father's side) who clearly
+have some combination of borderline personality disorder, narcissistic
+personality disorder, and bipolar personality disorder (my father was committed
+to a psychiatric ward at age 19 due to a psychotic break, and my older half
+brother recently went through drug-induced psychosis in which he crashed his
+car, lost his licence, briefly abducted his child, was committed to a mental
+institution, went to prison briefly after assaulting his mother, etc.).
+
+Overall, my goals in life are to
+
+*** Physical Health
+Aside from the issue with the seizure, and an elevated cholesterol level that
+was shown during my last blood check. I am a generally healthy and active
+person.
+**** Exercise
+I typically go on 20 minute walks with my dog 3 times per day, and in
+addition do more intensive cardiovascular exercise 2-3 times per week (typically
+a combination of running and cycling).
+**** Height and Weight
+I am 6 feet tall, and my weight typically ranges between 190 and 200 pounds. I
+would ideally like to settle in at a leaner 180-185 lbs.
+**** Substances
+I am an ex-smoker, having smoked roughly a pack a week from the time I was 18
+to 25. During my early 20s, I drank heavily (10-20 drinks per week), and
+occasionally used drugs recreationally (mostly marijuana, but occasionally
+cocaine and MDMA). However, over most of the last decade, I have quit smoking
+and all drug use aside from the occasional marijuana use (once every two-three
+months), and the extremely occasional social cigarette (one every two-three
+months). I will typically have 5 drinks per week, with a very occasional (once
+every two-tree months) "night out" where I will have 5-6 drinks in an evening.
+**** Diet
+I don't do a great job of tracking my diet, but I tend to eat fairly well. Since
+I was informed about my cholesterol level, I have substantially reduced my
+consumption of red meat, cheese, and deep fried foods that are high in
+unsaturated fats. I try to have well rounded meals that are low in fat and heavy
+in vegetables. That said, sometimes (especially when travelling or extremely
+busy) I lapse into less healthy eating patterns.
+
+
+** My Goals
+*** 2025 Goals
+I have several goals related to my career, health, marriage, and family for 2025:
+1. I want to solidify my current situation professionally within the next
+   calendar year, either by finding a permanent job as a
+   researcher/consultant/data scientist, or by securing a tenure track Assistant
+   Professor position. I would like to avoid being separated from my wife if at
+   all possible, so that means I'll likely have to find that stability in Chile,
+   or get a job that pays me well enough that my wife is willing to leave her
+   job to accompany me. Given the traction that I've already gotten in the
+   Chilean job market (shortlisted for both TT jobs I applied to, and
+   successfully got the postdoc), I think that this is achievable if I stick to
+   it, and even moreso since my postdoc may turn into a permanent researcher
+   position.
+2. I want to get back on track with my mental health. After major gains from
+   2023 to mid 2024 due to access to a very cushy health care plan at Yale, I've
+   backslid a bit in terms of my emotional regulation. To be fair, this might
+   have something to do with the difficulties of the academic job market, where
+   I received a lot of rejection, and from moving twice within a six month
+   period. I'm hoping that stability in Chile over the next couple years can
+   help me in this regard.
+3. I want to keep up my regular exercise habit and avoid injury. I typically
+   tend to go all out with a sport until I get a minor injury, after which I
+   fall off. I want to build up a better strength training regime to help me
+   with a chronic muscle imbalance in my right hip, which I think it directly
+   related to the running injuries I pick up.
+4. I want to get to a steady weight range of 185-190, down from my current range
+   of 195-200. Part of this is just being a bit more careful with my eating
+   habits, as well as keeping up my exercise. I also need to get my bloodwork
+   done.
+5. I'm several years behind on my US and Canadian taxes, and I desperately need
+   to normalize this situation for this upcoming tax season. This is a major
+   priority. I need to have this paperwork done for April, when I go to Chicago
+   for a conference, so that I can mail off the appropriate paperwork.
+6. My marriage with my wife is very strong, but I want to make sure that I'm
+   putting the work in to keep it that way. This mean active listening, being
+   proactive about making plans, etc.
+7. I want to get my wife pregnant. We've been trying for about 6 months, and
+   nothing has happened yet, so I think that it's time that I get my sperm
+   checked. If we need to have IVF, then we need to start budgeting for that.
+* Journaling
+** Weekly Notes
+*** 2025
+**** Week 7 (February 17th)
+***** Plan for the Week
+***** Reflection
+* Productivity
+** Inbox
+*** [#A] TODO Debug analysis script for AI persuasion paper
+    SCHEDULED: <2025-02-26 Mon>
+    :PROPERTIES:
+    :Effort:   3:00
+    :END:
+** Research
+*** Projects
+**** Measurement
+***** Colonial India Legislature
+****** Action Items
+****** Meetings
+****** Notes
+***** JPIPE Deliberative Quality
+****** Action Items
+****** Meetings
+****** Notes
+***** Congress Bills Deliberation
+****** Action Items
+****** Meetings
+****** Notes
+**** Simulation
+***** Canada Electorate Simulation
+****** Action Items
+****** Meetings
+****** Notes
+***** Saga
+****** Action Items
+****** Meetings
+****** Notes
+**** Persuasion
+***** Moral Foundations Persuasion
+****** Action Items
+****** Meetings
+****** Notes
+**** AI Literacy
+***** US AI Literacy and Teaching Apps
+****** Action Items
+****** Meetings
+****** Notes
+** Work
+*** Schwartz-Reissman Postdoc
+**
+** Personal Development
+*** Learning Spanish
