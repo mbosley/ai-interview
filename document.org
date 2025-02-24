@@ -1,6 +1,6 @@
 #+title: The Document
 
-This is a document that contains the various goings-ons of my life. It is
+This is a document that contains the various goings-on of my life. It is
 designed to be used for task management, TODO tracking, etc., along with AI
 tools such as Aider, Cursor, etc., as well as taking advantage of org-mode
 robust getting things done (GTD) framework such as org-agenda, etc.
@@ -32,31 +32,44 @@ For example, a complete TODO item might look like this:
     - [ ] Add appointment to calendar
 #+end_src
 
-In this example (within the `src` block):
 - `[#A]` indicates it's a high priority task.
-- `TODO` is the keyword, marking it as a task to be done.
-- `Call dentist to schedule appointment` is the description of the task.
-- `SCHEDULED: <2025-03-01 Fri>` sets a schedule for Friday, March 1st, 2025 (when you plan to *start* working on it).
-- `DEADLINE: <2025-03-08 Fri>` sets a deadline for Friday, March 8th, 2025 (when the task *must* be completed).
-- `:Effort:   0:30` estimates the task will take 30 minutes.
-- The lines starting with `- [ ]` create a checklist of subtasks within the TODO item.
+-- `TODO` is the keyword, marking it as a task to be done.
+-- `Call dentist to schedule appointment` is the description of the task.
+-- `SCHEDULED: <2025-03-01 Fri>` sets a schedule for Friday, March 1st, 2025 (when you plan to *start* working on it).
+-- `DEADLINE: <2025-03-08 Fri>` sets a deadline for Friday, March 8th, 2025 (when the task *must* be completed).
+-- `:Effort:   0:30` estimates the task will take 30 minutes.
+-- The lines starting with `- [ ]` create a checklist of subtasks within the TODO item.
 
-** Logging Important Details
-When we are having a conversation, if I mention details about my life that seem
-important or noteworthy, please add them to the `** Important Details` section
-under `* AI Notes`.
+** Logging Important Details:
+When we are having a conversation, if you learn about details of my life that could be relevant for future conversations, please log them in the `** Important Details` section under `* AI Notes`.  These details might include things like:
+
+- Changes in my work or career
+- Updates on my health or family
+- New hobbies or interests
+- Travel plans
+- Important events or deadlines
 
 **Format for Logging Details:**
 
-Please log each important detail as a separate bullet point under the `** Important Details` heading.  It's helpful to include the date (or approximate date) when the detail was mentioned, if possible.
+Please log each important detail as a separate bullet point under the `** Important Details` heading.  Start each bullet point with the date (or approximate date) when the detail was mentioned, followed by the category in parentheses, and then the detail itself.
+
+**Categories:**
+- Personal
+- Work
+- Health
+- Family
+- Hobbies
+- Travel
+- Events
 
 For example:
 
 * AI Notes
 ** Important Details
-*** 2025-02-23: Started learning Spanish as a personal development goal.
-*** 2025-02-26:  Scheduled dentist appointment for March 8th.
-*** 202
+*** 2025-02-23 (Personal): Started learning Spanish as a personal development goal.
+*** 2025-02-26 (Health):  Scheduled dentist appointment for March 8th.
+*** 2025-03-01 (Work): Starting new postdoc at CENIA on June 1st.
+*** 20
 
 * About Me
 My name is Mitchell Bosley, I'm a 34 year old Canadian currently living in
