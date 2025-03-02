@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@stripe/stripe-js": "^5.7.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "firebase": "^11.4.0",
     "framer-motion": "^10.12.16",
     "i18next": "^23.2.3",
     "i18next-browser-languagedetector": "^7.1.0",

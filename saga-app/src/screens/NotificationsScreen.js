@@ -64,8 +64,8 @@ const NotificationsScreen = ({ navigate }) => {
         <button className="text-gray-800" onClick={() => navigate('dashboard')}>
           <span className="mr-1">←</span> {t('dashboard')}
         </button>
-        <div className="text-sm text-gray-500 font-light">{t('notifications')}</div>
-        <button className="text-sm text-blue-600" onClick={markAllAsRead}>
+        <div className="text-xs uppercase tracking-wider text-gray-500">{t('notifications')}</div>
+        <button className="text-sm text-gray-800" onClick={markAllAsRead}>
           {t('clearAll')}
         </button>
       </div>
@@ -73,10 +73,10 @@ const NotificationsScreen = ({ navigate }) => {
       <div className="flex-1 overflow-auto">
         {notifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full px-6 py-12">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+            <div className="w-16 h-16 bg-gray-100 flex items-center justify-center mb-4">
               <span className="text-2xl text-gray-400">🔔</span>
             </div>
-            <h2 className="text-lg font-medium text-gray-900 mb-2">No notifications</h2>
+            <h2 className="text-xl font-normal text-gray-900 mb-2">No notifications</h2>
             <p className="text-center text-gray-500">
               You're all caught up! Check back later for updates.
             </p>
@@ -86,13 +86,13 @@ const NotificationsScreen = ({ navigate }) => {
             {notifications.map(notification => (
               <div 
                 key={notification.id} 
-                className={`py-4 ${!notification.read ? 'bg-blue-50' : ''}`}
+                className={`py-4 ${!notification.read ? 'border-l-2 border-gray-800 pl-3 -ml-3' : ''}`}
                 onClick={() => markAsRead(notification.id)}
               >
                 <div className="flex items-start">
-                  <div className={`w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center mr-3 
-                    ${notification.type === 'interview' ? 'bg-blue-100' : 
-                      notification.type === 'payment' ? 'bg-green-100' : 'bg-gray-100'}`}
+                  <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center mr-3 
+                    ${notification.type === 'interview' ? 'bg-gray-100' : 
+                      notification.type === 'payment' ? 'bg-gray-100' : 'bg-gray-100'}`}
                   >
                     <span className="text-lg">
                       {notification.type === 'interview' ? '💬' : 
@@ -109,7 +109,7 @@ const NotificationsScreen = ({ navigate }) => {
                     <p className="text-sm text-gray-600 mb-2">{notification.message}</p>
                     {notification.type === 'interview' && (
                       <button 
-                        className="text-sm text-blue-600"
+                        className="text-sm text-gray-800"
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate('dashboard');
@@ -120,7 +120,7 @@ const NotificationsScreen = ({ navigate }) => {
                     )}
                     {notification.type === 'payment' && (
                       <button 
-                        className="text-sm text-blue-600"
+                        className="text-sm text-gray-800"
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate('earnings-details');
@@ -131,7 +131,7 @@ const NotificationsScreen = ({ navigate }) => {
                     )}
                     {notification.type === 'system' && !notification.read && (
                       <button 
-                        className="text-sm text-blue-600"
+                        className="text-sm text-gray-800"
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate('profile');
@@ -151,16 +151,16 @@ const NotificationsScreen = ({ navigate }) => {
       <div className="border-t border-gray-100">
         <div className="px-6 py-4">
           <div className="flex items-center mb-4">
-            <span className="text-sm text-gray-800 mr-2">Notification preferences</span>
-            <div className="flex-1 h-px bg-gray-200"></div>
+            <span className="text-xs uppercase tracking-wider text-gray-500 mr-2">Notification preferences</span>
+            <div className="flex-1 h-px bg-gray-100"></div>
           </div>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-800">New interviews</span>
               <div className="relative">
                 <input type="checkbox" className="sr-only toggle-checkbox" id="new-interviews" defaultChecked />
-                <label htmlFor="new-interviews" className="block toggle-label bg-gray-200 w-12 h-6 rounded-full">
-                  <div className="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full"></div>
+                <label htmlFor="new-interviews" className="block toggle-label bg-gray-200 w-12 h-6">
+                  <div className="dot absolute left-1 top-1 bg-white w-4 h-4"></div>
                 </label>
               </div>
             </div>
@@ -168,8 +168,8 @@ const NotificationsScreen = ({ navigate }) => {
               <span className="text-sm text-gray-800">Payment updates</span>
               <div className="relative">
                 <input type="checkbox" className="sr-only toggle-checkbox" id="payment-updates" defaultChecked />
-                <label htmlFor="payment-updates" className="block toggle-label bg-gray-200 w-12 h-6 rounded-full">
-                  <div className="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full"></div>
+                <label htmlFor="payment-updates" className="block toggle-label bg-gray-200 w-12 h-6">
+                  <div className="dot absolute left-1 top-1 bg-white w-4 h-4"></div>
                 </label>
               </div>
             </div>
@@ -177,8 +177,8 @@ const NotificationsScreen = ({ navigate }) => {
               <span className="text-sm text-gray-800">System announcements</span>
               <div className="relative">
                 <input type="checkbox" className="sr-only toggle-checkbox" id="system-announcements" defaultChecked />
-                <label htmlFor="system-announcements" className="block toggle-label bg-gray-200 w-12 h-6 rounded-full">
-                  <div className="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full"></div>
+                <label htmlFor="system-announcements" className="block toggle-label bg-gray-200 w-12 h-6">
+                  <div className="dot absolute left-1 top-1 bg-white w-4 h-4"></div>
                 </label>
               </div>
             </div>

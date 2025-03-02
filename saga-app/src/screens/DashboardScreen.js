@@ -1,29 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUser } from '../context/UserContext';
 import SupportChat from '../components/common/SupportChat';
+import useMobileGestures from '../utils/useMobileGestures';
+import MobileBottomNavigation from '../components/common/MobileBottomNavigation';
+import { IoTimeOutline, IoCheckmarkCircle, IoStarOutline } from 'react-icons/io5';
 
 const DashboardScreen = ({ navigate }) => {
   const { t } = useTranslation();
   const { userData } = useUser();
   const [showSupportChat, setShowSupportChat] = useState(false);
+  const [currentTime, setCurrentTime] = useState('');
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [sortBy, setSortBy] = useState('default'); // 'default', 'compensation', 'duration'
+  
+  // Available interviews data
+  const [availableInterviews, setAvailableInterviews] = useState([
+    {
+      id: 1,
+      title: 'Values & Ethics',
+      duration: 15,
+      compensation: 15,
+      description: 'Share your perspectives on ethical dilemmas and value systems.',
+      isNew: true,
+      isPopular: false,
+    },
+    {
+      id: 2,
+      title: 'Decision Making',
+      duration: 25,
+      compensation: 20,
+      description: 'Explore your decision-making process in various scenarios.',
+      isNew: false,
+      isPopular: false,
+    },
+    {
+      id: 3,
+      title: 'Cultural Insights',
+      duration: 30,
+      compensation: 25,
+      description: 'Share perspectives from your cultural background.',
+      isNew: false,
+      isPopular: true,
+    }
+  ]);
+  
+  // Update clock every minute
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    };
+    
+    updateTime(); // Initial update
+    const intervalId = setInterval(updateTime, 60000); // Update every minute
+    
+    return () => clearInterval(intervalId);
+  }, []);
+  
+  // Handle pull-to-refresh
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    
+    // Return a promise for the mobile gestures hook
+    return new Promise((resolve) => {
+      // Simulate fetching new data
+      setTimeout(() => {
+        // Just shuffle the interviews to simulate changes
+        setAvailableInterviews(prev => [...prev].sort(() => Math.random() - 0.5));
+        setIsRefreshing(false);
+        resolve();
+      }, 1500);
+    });
+  }, []);
+  
+  // Use mobile gestures hook for pull-to-refresh
+  const { containerRef, PullIndicator } = useMobileGestures({
+    onRefresh: handleRefresh,
+    onSwipeLeft: () => navigate('earnings-details'),
+    onSwipeRight: () => navigate('profile'),
+  });
+  
+  // Sort interviews
+  const sortedInterviews = [...availableInterviews].sort((a, b) => {
+    if (sortBy === 'compensation') {
+      return b.compensation - a.compensation;
+    } else if (sortBy === 'duration') {
+      return a.duration - b.duration;
+    }
+    return 0; // default order
+  });
+  
+  // Remove tutorial functionality
+  useEffect(() => {
+    // Override any tutorial showing logic
+    if (showSupportChat) {
+      setShowSupportChat(false);
+    }
+  }, []);
   
   return (
-    <div className="flex flex-col min-h-[640px] bg-white font-sans">
-      <div className="flex justify-between items-center px-6 py-3 text-sm text-gray-400">
-        <div>9:41</div>
-        <div className="flex items-center space-x-1.5">
-          <div className="w-4 h-4 rounded-sm border border-gray-300"></div>
-          <div className="w-4 h-4 rounded-sm border border-gray-300"></div>
-          <div className="w-4 h-4 rounded-sm border border-gray-300"></div>
-        </div>
-      </div>
-      <div className="px-6 pt-6 pb-8">
+    <div 
+      ref={containerRef}
+      className="flex flex-col min-h-screen bg-gray-50 font-sans mobile-scroll-container"
+    >
+      <PullIndicator />
+      
+      {/* Minimalist header */}
+      <div className="px-5 py-3 bg-white sticky top-0 z-30">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-normal text-gray-900">{t('dashboard')}</h1>
+          <h1 className="text-base font-medium text-gray-900">Home</h1>
           <div className="relative">
             <button 
-              className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm text-gray-500"
+              className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm text-gray-600"
               onClick={() => navigate('profile')}
             >
               {userData.profilePic ? 
@@ -32,7 +121,7 @@ const DashboardScreen = ({ navigate }) => {
               }
             </button>
             {userData.notifications > 0 && (
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs"
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-black rounded-full flex items-center justify-center text-white text-xs"
                 onClick={() => navigate('notifications')}
               >
                 {userData.notifications}
@@ -41,25 +130,49 @@ const DashboardScreen = ({ navigate }) => {
           </div>
         </div>
       </div>
-      <div className="px-6 mb-8">
-        <p className="text-xs uppercase tracking-wider text-gray-400 mb-1">{t('totalEarnings')}</p>
-        <div className="text-3xl font-light text-gray-900 mb-1">${userData.totalEarnings.toFixed(2)}</div>
-        <p className="text-sm text-gray-500">${userData.pendingEarnings.toFixed(2)} {t('pendingPayout')}</p>
+      
+      <div className="px-5 pt-3">
+        <p className="text-sm text-gray-500">Hello, {userData.name.split(' ')[0]}</p>
       </div>
       
-      {userData.profileCompleted < 100 && (
-        <div className="px-6 mb-8">
-          <div className="bg-blue-50 p-4 rounded-md">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-sm font-medium text-blue-800">{t('completeProfile')}</h3>
-              <span className="text-sm text-blue-800">{userData.profileCompleted}%</span>
-            </div>
-            <div className="w-full bg-blue-100 rounded-full h-2 mb-2">
-              <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${userData.profileCompleted}%` }}></div>
-            </div>
-            <p className="text-xs text-blue-700 mb-3">{t('profileCompletion')}</p>
+      {/* Minimalist earnings card */}
+      <div className="px-5 mt-4 mb-5">
+        <div className="p-5 border-b border-gray-100">
+          <div className="flex justify-between items-center mb-1">
+            <p className="text-xs text-gray-500 uppercase tracking-wide">{t('totalEarnings')}</p>
             <button 
-              className="w-full bg-blue-700 text-white font-normal text-sm py-2 px-4 rounded-md transition-all duration-150 hover:bg-blue-800"
+              className="text-sm" 
+              onClick={() => navigate('earnings-details')}
+            >
+              Details
+            </button>
+          </div>
+          <div className="text-2xl font-normal text-gray-900 mb-3">
+            ${userData.totalEarnings.toFixed(2)}
+          </div>
+          <div className="flex items-center">
+            <div className="h-px w-4 bg-gray-300 mr-2"></div>
+            <p className="text-xs text-gray-500">
+              ${userData.pendingEarnings.toFixed(2)} {t('pendingPayout')}
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      {/* Minimalist profile completion card */}
+      {userData.profileCompleted < 100 && (
+        <div className="px-5 mb-8">
+          <div className="border border-black p-5">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-sm">{t('completeProfile')}</h3>
+              <span className="text-sm">{userData.profileCompleted}%</span>
+            </div>
+            <div className="w-full bg-gray-100 h-px mb-3">
+              <div className="bg-black h-px" style={{ width: `${userData.profileCompleted}%` }}></div>
+            </div>
+            <p className="text-xs text-gray-500 mb-4">{t('profileCompletion')}</p>
+            <button 
+              className="w-full border border-black text-sm py-2"
               onClick={() => navigate('profile')}
             >
               {t('completeProfile')}
@@ -68,119 +181,120 @@ const DashboardScreen = ({ navigate }) => {
         </div>
       )}
       
-      <div className="px-6 mb-8">
-        <h2 className="text-xs uppercase tracking-wider text-gray-400 mb-4">{t('availableInterviews')}</h2>
-        <div className="space-y-3">
-          <div className="border border-gray-200 rounded-md p-4">
-            <div className="flex justify-between items-start mb-3">
-              <div>
-                <h3 className="text-base font-medium text-gray-900 mb-1">Values & Ethics</h3>
-                <p className="text-sm text-gray-500">15 min interview • $15 compensation</p>
-              </div>
-              <span className="text-xs uppercase bg-blue-50 text-blue-700 px-2 py-1 rounded">{t('newLabel')}</span>
-            </div>
-            <p className="text-sm text-gray-600 mb-4">Share your perspectives on ethical dilemmas and value systems to help develop more nuanced AI responses.</p>
-            <button
-              className="w-full bg-black text-white font-normal text-sm py-2.5 px-4 rounded-md transition-all duration-150 hover:bg-gray-900"
-              onClick={() => navigate('interview', { interviewType: 'Values & Ethics' })}
+      {/* Minimalist Available Interviews section */}
+      <div className="px-5 mb-6">
+        <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-2">
+          <h2 className="text-sm uppercase tracking-wide text-gray-500">{t('availableInterviews')}</h2>
+          
+          {/* Minimalist sorting tabs */}
+          <div className="flex space-x-3 text-xs">
+            <button 
+              className={`${sortBy === 'default' ? 'text-black' : 'text-gray-400'}`}
+              onClick={() => setSortBy('default')}
             >
-              {t('startInterview')}
+              All
+              {sortBy === 'default' && <div className="h-0.5 w-full bg-black mt-1"></div>}
             </button>
-          </div>
-          <div className="border border-gray-200 rounded-md p-4">
-            <div className="flex justify-between items-start mb-3">
-              <div>
-                <h3 className="text-base font-medium text-gray-900 mb-1">Decision Making</h3>
-                <p className="text-sm text-gray-500">25 min interview • $20 compensation</p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 mb-4">Explore your decision-making process in various scenarios to help improve AI reasoning capabilities.</p>
-            <button
-              className="w-full bg-black text-white font-normal text-sm py-2.5 px-4 rounded-md transition-all duration-150 hover:bg-gray-900"
-              onClick={() => navigate('interview', { interviewType: 'Decision Making' })}
+            <button 
+              className={`${sortBy === 'compensation' ? 'text-black' : 'text-gray-400'}`}
+              onClick={() => setSortBy('compensation')}
             >
-              {t('startInterview')}
+              Pay
+              {sortBy === 'compensation' && <div className="h-0.5 w-full bg-black mt-1"></div>}
             </button>
-          </div>
-          <div className="border border-gray-200 rounded-md p-4">
-            <div className="flex justify-between items-start mb-3">
-              <div>
-                <h3 className="text-base font-medium text-gray-900 mb-1">Cultural Insights</h3>
-                <p className="text-sm text-gray-500">30 min interview • $25 compensation</p>
-              </div>
-              <span className="text-xs uppercase bg-green-50 text-green-700 px-2 py-1 rounded">{t('popularLabel')}</span>
-            </div>
-            <p className="text-sm text-gray-600 mb-4">Share perspectives from your cultural background to help AI systems become more globally aware and inclusive.</p>
-            <button
-              className="w-full bg-black text-white font-normal text-sm py-2.5 px-4 rounded-md transition-all duration-150 hover:bg-gray-900"
-              onClick={() => navigate('interview', { interviewType: 'Cultural Insights' })}
+            <button 
+              className={`${sortBy === 'duration' ? 'text-black' : 'text-gray-400'}`}
+              onClick={() => setSortBy('duration')}
             >
-              {t('startInterview')}
+              Time
+              {sortBy === 'duration' && <div className="h-0.5 w-full bg-black mt-1"></div>}
             </button>
           </div>
         </div>
-      </div>
-      <div className="px-6 mb-10">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xs uppercase tracking-wider text-gray-400">{t('completedInterviews')}</h2>
-          <button className="text-xs text-blue-600" onClick={() => navigate('earnings-details')}>{t('viewAll')}</button>
-        </div>
-        <div className="space-y-3">
-          <div className="border border-gray-100 rounded-md p-3 flex justify-between items-center">
-            <div>
-              <h3 className="text-base text-gray-800">Initial Assessment</h3>
-              <p className="text-xs text-gray-500">Jul 15, 2024 • $15.00</p>
-            </div>
-            <span className="text-xs uppercase bg-green-50 text-green-700 px-2 py-0.5 rounded">{t('paidLabel')}</span>
+
+        {isRefreshing && (
+          <div className="flex justify-center items-center py-3">
+            <div className="w-3 h-3 rounded-full border-t-2 border-r-2 border-black animate-spin mr-2"></div>
+            <span className="text-xs text-gray-500">Refreshing...</span>
           </div>
-          <div className="border border-gray-100 rounded-md p-3 flex justify-between items-center">
-            <div>
-              <h3 className="text-base text-gray-800">Life Experiences</h3>
-              <p className="text-xs text-gray-500">Jul 10, 2024 • $25.00</p>
-            </div>
-            <span className="text-xs uppercase bg-green-50 text-green-700 px-2 py-0.5 rounded">{t('paidLabel')}</span>
+        )}
+
+        {sortedInterviews.length === 0 ? (
+          <div className="p-8 text-center border border-gray-200">
+            <h3 className="text-base mb-2">No interviews available</h3>
+            <p className="text-xs text-gray-500 mb-4">Check back soon for new opportunities</p>
+            <button 
+              className="text-sm border border-black py-2 px-4"
+              onClick={handleRefresh}
+            >
+              Refresh
+            </button>
           </div>
-          <div className="border border-gray-100 rounded-md p-3 flex justify-between items-center">
-            <div>
-              <h3 className="text-base text-gray-800">Cultural Background</h3>
-              <p className="text-xs text-gray-500">Jul 05, 2024 • $15.00</p>
-            </div>
-            <span className="text-xs uppercase bg-yellow-50 text-yellow-700 px-2 py-0.5 rounded">{t('pendingLabel')}</span>
+        ) : (
+          <div className="space-y-6">
+            {sortedInterviews.map(interview => (
+              <div key={interview.id} className="border-b border-gray-100 pb-6">
+                <div className="mb-3">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-base text-gray-900">{interview.title}</h3>
+                    <div className="text-sm">
+                      ${interview.compensation}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2 text-xs text-gray-500 mb-3">
+                    <div>{interview.duration} min</div>
+                    {interview.isNew && (
+                      <>
+                        <div>•</div>
+                        <div className="text-black">New</div>
+                      </>
+                    )}
+                    {interview.isPopular && (
+                      <>
+                        <div>•</div>
+                        <div className="text-black">Popular</div>
+                      </>
+                    )}
+                  </div>
+                  
+                  <p className="text-sm text-gray-600 mb-4">{interview.description}</p>
+                  
+                  <button
+                    className="border border-black py-2 text-sm w-full"
+                    onClick={() => navigate('interview', { interviewType: interview.title })}
+                  >
+                    {t('startInterview')}
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+        )}
       </div>
       
+      {/* Completed interviews section removed */}
+      
+      {/* Support chat */}
       {showSupportChat && <SupportChat onClose={() => setShowSupportChat(false)} />}
       
-      <div className="fixed bottom-4 right-4 z-10">
+      {/* Minimalist help button */}
+      <div className="fixed bottom-20 right-5 z-10">
         <button 
-          className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg"
+          className="w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-800 flex items-center justify-center"
           onClick={() => setShowSupportChat(true)}
         >
-          ?
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </button>
       </div>
       
-      <div className="mt-auto border-t border-gray-100">
-        <div className="flex justify-around px-2 py-4">
-          <button className="flex flex-col items-center">
-            <div className="w-6 h-6 border-b-2 border-black mb-1"></div>
-            <span className="text-xs text-gray-900">{t('home')}</span>
-          </button>
-          <button className="flex flex-col items-center" onClick={() => navigate('earnings-details')}>
-            <div className="w-6 h-6 mb-1 text-gray-400">$</div>
-            <span className="text-xs text-gray-400">{t('earnings')}</span>
-          </button>
-          <button className="flex flex-col items-center" onClick={() => navigate('profile')}>
-            <div className="w-6 h-6 mb-1 text-gray-400">★</div>
-            <span className="text-xs text-gray-400">{t('profile')}</span>
-          </button>
-          <button className="flex flex-col items-center" onClick={() => navigate('settings')}>
-            <div className="w-6 h-6 mb-1 text-gray-400">⚙️</div>
-            <span className="text-xs text-gray-400">{t('settings')}</span>
-          </button>
-        </div>
-      </div>
+      {/* Add padding to the bottom to account for the fixed navigation */}
+      <div className="pb-20"></div>
+      
+      {/* Mobile bottom navigation */}
+      <MobileBottomNavigation activeTab="dashboard" navigate={navigate} />
     </div>
   );
 };

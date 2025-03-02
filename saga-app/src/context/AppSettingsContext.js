@@ -6,7 +6,7 @@ export const AppSettingsProvider = ({ children }) => {
   const [language, setLanguage] = useState('en');
   const [theme, setTheme] = useState('light');
   const [isOnline, setIsOnline] = useState(true);
-  const [showTutorial, setShowTutorial] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false); // Always keep this false
   const [consented, setConsented] = useState(false);
   
   // Online status detection

@@ -1,66 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const WelcomeScreen = ({ navigate }) => {
   const { t } = useTranslation();
+  const [loaded, setLoaded] = useState(false);
+  
+  useEffect(() => {
+    // Simple animation on mount
+    setTimeout(() => setLoaded(true), 100);
+  }, []);
   
   return (
-    <div className="flex flex-col min-h-[640px] bg-white font-sans px-6">
-      <div className="flex justify-between items-center py-3 text-sm text-gray-400">
-        <div>9:41</div>
-        <div className="flex items-center space-x-1.5">
-          <div className="w-4 h-4 rounded-sm border border-gray-300"></div>
-          <div className="w-4 h-4 rounded-sm border border-gray-300"></div>
-          <div className="w-4 h-4 rounded-sm border border-gray-300"></div>
-        </div>
+    <div className="flex flex-col min-h-screen bg-white font-sans px-10">
+      {/* Minimal navigation */}
+      <div className="absolute top-0 right-0 p-10">
+        <button 
+          className={`text-xs text-gray-300 tracking-[0.15em] uppercase transition-all duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          onClick={() => navigate('dashboard')}
+        >
+          Skip
+        </button>
       </div>
-      <div className="flex-1 flex flex-col justify-center max-w-md mx-auto w-full">
-        <div className="mb-16 text-center">
-          <h1 className="text-4xl font-normal tracking-tight text-gray-900">saga</h1>
-        </div>
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-normal text-gray-800 mb-3 leading-snug">{t('tagline').split('.')[0]}</h2>
-          <h2 className="text-3xl font-normal text-gray-800 mb-8 leading-snug">{t('tagline').split('.')[1]}</h2>
-          <p className="text-base text-gray-500 leading-relaxed">
-            Contribute to ethical AI development through guided conversations and receive fair compensation for your insights.
+      
+      <div className="flex-1 flex flex-col justify-center items-center w-full">
+        <div className={`flex flex-col items-center mb-28 transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <h1 className="text-7xl font-thin text-gray-800 mb-24 tracking-wide">
+            saga
+          </h1>
+          <p className="text-base font-light text-gray-500 tracking-[0.15em]">
+            share your story
           </p>
         </div>
-        <div className="mb-20 grid grid-cols-3 gap-2 text-center">
-          <div className="flex flex-col items-center">
-            <p className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">EARN</p>
-            <p className="text-sm text-gray-700">$15-25 per interview</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <p className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">TIME</p>
-            <p className="text-sm text-gray-700">15-30 minutes</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <p className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">SECURITY</p>
-            <p className="text-sm text-gray-700">Fully anonymous</p>
-          </div>
-        </div>
-        <div className="space-y-3">
+        
+        <div className="w-full max-w-[300px] space-y-4">
           <button
-            className="w-full bg-black text-white font-normal text-base py-3.5 px-4 rounded-md transition-all duration-150 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-1"
+            className={`w-full bg-black text-white text-xs uppercase tracking-[0.15em] py-5 px-6 transition-all duration-1000 hover:bg-gray-900 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            style={{ transitionDelay: '200ms' }}
             onClick={() => navigate('onboarding')}
           >
-            {t('signup')}
+            Create account
           </button>
           <button
-            className="w-full bg-white text-gray-900 font-normal text-base py-3.5 px-4 rounded-md transition-all duration-150 hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-1"
-            onClick={() => navigate('dashboard')}
+            className={`w-full bg-white text-gray-800 text-xs uppercase tracking-[0.15em] py-5 border border-gray-50 transition-all duration-1000 hover:border-gray-200 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            style={{ transitionDelay: '300ms' }}
+            onClick={() => navigate('login')}
           >
-            {t('login')}
+            Sign in
           </button>
-          <div className="text-center pt-8">
-            <button 
-              className="text-sm text-gray-500 hover:text-gray-800 transition-colors duration-150 focus:outline-none focus:underline"
-              onClick={() => navigate('how-it-works')}
-            >
-              Learn how it works
-            </button>
-          </div>
         </div>
+      </div>
+      
+      <div className="absolute bottom-0 left-0 w-full p-10 text-center">
+        <button 
+          className={`text-xs uppercase tracking-[0.15em] text-gray-300 transition-all duration-700 hover:text-gray-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          style={{ transitionDelay: '400ms' }}
+          onClick={() => navigate('how-it-works')}
+        >
+          Learn more
+        </button>
       </div>
     </div>
   );
